@@ -1,0 +1,102 @@
+version: '2'
+volumes:
+  pgdata:
+
+services:
+  swdev-springboot:
+    build: .
+    image: "swdev-springboot"
+    container_name: "swdev-springboot"
+    volumes:
+      - .:/app/swdev/:rw
+      - ./data/root:/root/:rw
+    ports:
+      - "8080:8080"
+      - "35729:35729"
+      - "5005:5005"
+    networks:
+      swdev:
+        aliases:
+          - swdev-springboot
+    depends_on:
+      - swdev-postgres
+      - kafka  # ← add this
+
+  swdev-postgres:
+    image: postgres:14-bullseye
+    container_name: "swdev-postgres"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+      - ./scripts/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./scripts/postgres/database:/app/postgres/database
+    ports:
+      - "5432:5432"
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    networks:
+      swdev:
+        aliases:
+          - swdev-postgres
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:29092,CONTROLLER://0.0.0.0:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+    networks:
+      swdev:
+        aliases:
+          - kafka
+
+  debezium:
+    image: debezium/connect:2.4
+    container_name: debezium
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
+    depends_on:
+      - kafka
+      - swdev-postgres
+    networks:
+      swdev:
+        aliases:
+          - debezium
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:4.0.1
+    container_name: kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+    depends_on:
+      - kafka
+    networks:
+      swdev:
+        aliases:
+          - kafdrop
+
+networks:
+  swdev:

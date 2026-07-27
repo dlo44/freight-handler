@@ -1,0 +1,15 @@
+# Database Configuration (PostgreSQL)
+spring.datasource.url=jdbc:postgresql://localhost:5432/7dbs
+spring.datasource.username=postgres
+spring.datasource.password=password
+
+# DevTools - Hot Reload
+spring.devtools.restart.enabled=true
+spring.devtools.restart.pollInterval=2s
+
+# Kafka Configuration
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=freight-monitor
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer

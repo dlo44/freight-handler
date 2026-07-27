@@ -1,0 +1,37 @@
+### IntelliJ ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+/shelf/
+/workspace.xml
+/httpRequests/
+/dataSources/
+/dataSources.local.xml
+
+### Java / Spring Boot ###
+target/
+*.class
+*.jar
+*.war
+
+### Maven ###
+.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+### Docker / Local secrets ###
+application-local.properties
+!application-local.properties.example
+.env
+*.env.local
+
+### OS / Logs ###
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+### Local data / DB dumps ###
+data/

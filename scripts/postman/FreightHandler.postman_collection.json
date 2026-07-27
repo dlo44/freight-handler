@@ -1,0 +1,274 @@
+{
+  "info": {
+    "_postman_id": "93bf0651-dfc3-4cdd-8100-5de9b2fffb26",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52006179",
+    "_collection_link": "https://go.postman.co/collection/52006179-93bf0651-dfc3-4cdd-8100-5de9b2fffb26?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "http://localhost:8080/api/shipments",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"shipmentNumber\": 888842017115,\n   \"shipperAddress\":\"5545 S 100 E Denver,CO 80239\",\n   \"receiverAddress\": \"5980 e 100 Pomona, CA 91750\",\n   \"destination\":\"LAX\",\n   \"currLocation\":\"Door 244\"\n  \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/shipments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "shipments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/trailers",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"trailerNumber\":\"P420\",\n   \"status\":\"UNLOAD\",\n   \"loading\": false,\n   \"destination\" : \"DEN\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/trailers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trailers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/doors",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"doorNumber\": 244,\n   \"status\": \"UNLOAD\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/doors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "doors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/shipments/ 888842017114",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"shipmentNumber\": 888842017114,\n   \"shipperAddress\":\"5543 S 100 E Denver,CO 80239\",\n   \"receiverAddress\": \"5980 e 100 Pomona, CA 91750\",\n   \"destination\":\"LAX\",\n   \"currLocation\":\"Door 244\",\n   \"trailer\":{\n    \"trailerNumber\": \"P420\"\n\n   }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/shipments/ 888842017114",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "shipments",
+            " 888842017114"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/doors/244",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"doorNumber\" :244,\n   \"trailer\":{\n   \"trailerNumber\": \"P420\",\n   \"status\": \"UNLOAD\",\n   \"destination\":\"DEN\"\n   }\n  \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/doors/244",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "doors",
+            "244"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/trailers/P420",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"shipmentNumber\": 888842017107,\n   \"shipperAddress\":\"5543 S 100 E Denver,CO 80239\",\n   \"receiverAddress\": \"5980 e 100 Pomona, CA 91750\",\n   \"destination\":\"LAX\",\n   \"currLocation\":\"Door 244\",\n   \"trailer\":{\n    \"trailerNumber\": \"P420\"\n\n   }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/trailers/P420",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trailers",
+            "P420"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/doors/244",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n   \"shipmentNumber\": 888842017107,\n   \"shipperAddress\":\"5543 S 100 E Denver,CO 80239\",\n   \"receiverAddress\": \"5980 e 100 Pomona, CA 91750\",\n   \"destination\":\"LAX\",\n   \"currLocation\":\"Door 244\",\n   \"trailer\":{\n    \"trailerNumber\": \"P420\"\n\n   }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/doors/244",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "doors",
+            "244"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
