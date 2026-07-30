@@ -2,7 +2,7 @@
 RESTful Spring Boot application, serves as backend for Freight Handler Android app.
 
 ### About project
-- My inspiration for this project was my current job where I work as a freight handler loading/ unloading trailers. This project is built from a previous project template. It serves as the back end for the Freight Handler Android application.
+- My inspiration for this project was my current job where I work as a freight handler loading/ unloading trailers. This project is built from a previous project template. It serves as the back end for the Freight Handler Android application. The repo for the android app can be found at https://github.com/dlo44/Freight-Handler-AndroidApp
 ### Features
 - Create, update, and delete doors, trailers, and shipments.
 - Kafka/ Debezium integration to send data to the Android app in real time. This triggers a "busy" notification when a set amount of time has passed for a shipment waiting to be loaded 
